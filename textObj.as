@@ -28,8 +28,9 @@
 			
             var d_format:TextFormat = new TextFormat();
             d_format.font = "Verdana";
+			//d_format.bold = true;
             d_format.color = 0x999999;
-            d_format.size = 24;
+            d_format.size = 26;
 			
 			t = new TextField();
             t.autoSize = TextFieldAutoSize.LEFT;
@@ -37,31 +38,41 @@
 			t.multiline = false;
             t.defaultTextFormat = d_format;
 			t.text = "Введите текст";
+			t.selectable = false;
+			t.doubleClickEnabled = true
 			addChild(t);
 			
 			super.addToStage(t);
-
-			t.name = "text" + textCount;
-			textCount++;
-			
-			t.addEventListener(TextEvent.TEXT_INPUT, inputStart);
-			//addEventListener(FocusEvent.FOCUS_IN, focusIsIn);
-
+			//t.addEventListener(TextEvent.TEXT_INPUT, inputStart);
+			t.addEventListener(MouseEvent.DOUBLE_CLICK, inputEnable);
+			t.addEventListener(MouseEvent.CLICK, selectTextInput);
+			t.addEventListener(TextEvent.TEXT_INPUT, focusIsIn);
 		}
 		
-		private function inputStart(e:TextEvent):void{
+		private function selectTextInput(e:MouseEvent):void{
 			
-			MovieClip(parent.parent).tool.fitToTarget();
+			MovieClip(parent.parent).contentBg.tool.fitToTarget();
+			trace("click!");
 			
 		}
 		
-		private function focusIsIn(e:FocusEvent):void{
+		private function inputEnable(e:MouseEvent):void{
+			trace("doubleclick!");
+			MovieClip(parent.parent).contentBg.tool.fitToTarget();
+			t.selectable = true;
+			t.setSelection(0, 0);
+			//t.addEventListener(TextEvent.TEXT_INPUT, inputStart);
 			
-			trace(e.target, e.target.getChildAt(0))
 			
-			e.target.removeEventListener(FocusEvent.FOCUS_IN, focusIsIn);
-			e.target.addEventListener(TextEvent.TEXT_INPUT, inputStart);
-			stage.addEventListener(MouseEvent.MOUSE_DOWN, MovieClip(parent).tool.deselect);
+		}
+		
+		private function focusIsIn(e:TextEvent):void{
+			
+			trace(e.target);
+			
+			//e.target.removeEventListener(FocusEvent.FOCUS_IN, focusIsIn);
+			//e.target.addEventListener(TextEvent.TEXT_INPUT, inputStart);
+			//stage.addEventListener(MouseEvent.MOUSE_DOWN, MovieClip(parent.parent).tool.deselect);
 
 			if(e.target.text == "Введите текст"){
 				e.target.text = "";

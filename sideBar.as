@@ -3,10 +3,10 @@
 	import flash.display.MovieClip;
 	
 	
-	public class sideBar extends MovieClip {
+	public class SideBar extends MovieClip {
 		
 		
-		public function sideBar() {
+		public function SideBar() {
 			// constructor code
 		}
 	}

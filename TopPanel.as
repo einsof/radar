@@ -2,32 +2,35 @@
 	
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
-	import fl.controls.Button;
+	//import fl.controls.Button;
 	
 	
 	public class TopPanel extends MovieClip {
 		
 		private var n:String;
 		
-		public var ph:photoObj;
+		public var pic:pictureObj;
 		public var sh:shapeObj;
 		public var tx:textObj;
+		public var scale:Number = 1;
 		
 		public function TopPanel() {
 			
-			photo_b.addEventListener(MouseEvent.CLICK, addObject);
+			picture_b.addEventListener(MouseEvent.CLICK, addObject);
 			shape_b.addEventListener(MouseEvent.CLICK, addObject);
 			text_b.addEventListener(MouseEvent.CLICK, addObject);
+			
 
 		}
 		
 		private function addObject(e:MouseEvent){
 			
 			n = e.target.name;
+			var paper = MovieClip(parent).contentBg.paper;		
 			
-			if(n == "photo_b"){
-				ph = new photoObj();
-				addChild(ph);
+			if(n == "picture_b"){
+				pic = new pictureObj();
+				addChild(pic);
 			}else if(n == "shape_b"){
 				sh = new shapeObj();
 				addChild(sh);
@@ -36,10 +39,16 @@
 				addChild(tx);
 			}
 			
-			
-			
-			
 		}
+/*		
+		public function set zoom(e:MouseEvent){
+			
+			
+			
+		}*/
+		
+		
+		
 		
 	}
 	
