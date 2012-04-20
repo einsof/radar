@@ -5,32 +5,39 @@
 	import flash.display.Loader;
 	import flash.net.URLRequest;
 	import flash.events.Event;
-	import flash.events.MouseEvent;
 	
 	public class shapeObj extends Objects {
 		
 		private var shapeLoader:Loader;
 		public var shapeSprite:Sprite;
-		private var shapeCount:int = 1;
+		private var _shapeUrl:String;
+		private var _clone:Boolean;
 
-		public function shapeObj() {
-			shapeLoader = new Loader();
-			shapeLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, shapeAdded);
-			shapeLoader.load( new URLRequest("123.swf") );
+		public function shapeObj(u:String, clone:Boolean = false) {
+			_shapeUrl = u;
+			_clone = clone;
+			if (stage) loadShape();
+			else addEventListener(Event.ADDED_TO_STAGE, loadShape);
 		}
 		
-		public function shapeAdded(e:Event):void {
+		private function loadShape(e:Event = null) {		
+			shapeLoader = new Loader();
+			shapeLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, shapeAdded);
+			shapeLoader.load( new URLRequest(_shapeUrl) );
+		}
+		
+		private function shapeAdded(e:Event):void {
 			shapeSprite = new Sprite();
 			shapeLoader.contentLoaderInfo.removeEventListener(Event.COMPLETE, shapeAdded);
 			shapeSprite.addChild(e.target.content);
-			addChild(shapeSprite);
-
-			super.addToStage(shapeSprite);
-
-			shapeSprite.name = "shape" + shapeCount;
 			
-			shapeCount++;
+			addChild(shapeSprite);
+			shapeSprite.name = _shapeUrl;
+			super.addToStage(shapeSprite, _clone);
+			
 		}
+		
+		
 
 	}
 	

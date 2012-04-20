@@ -704,34 +704,11 @@ package com.senocular.display.transform {
 			var tx:Number = _calculatedMatrix.tx + _postTransform.tx;
 			var ty:Number = _calculatedMatrix.ty + _postTransform.ty;
 			
-			//if(tx <= 0){};
-			//if(tx <= 0){};
-			//trace(tx, ty);
-			
 			// finally, concatenate post transform on to final
 			_calculatedMatrix.concat(_postTransform);
 			
 			// reassign saved tx and ty values with the 
 			// included registration offset
-			
-			
-			
-			/*var paperW = MovieClip(parent).width;
-			var paperH = MovieClip(parent).height;
-			var zoom:Number = MovieClip(this.root).currentZoom;
-			var objectWidth = this.width*zoom;
-			
-			trace(paperW, objectWidth, paperW - objectWidth, tx, tx*zoom);
-			if(tx <= 0){
-				_calculatedMatrix.tx = 0;
-			}else if(tx*zoom >= paperW - objectWidth){
-				_calculatedMatrix.tx =  paperW - objectWidth;
-			}else{
-				_calculatedMatrix.tx = tx;
-			}*/
-			
-			
-			
 			
 			_calculatedMatrix.tx = tx;
 			_calculatedMatrix.ty = ty;
